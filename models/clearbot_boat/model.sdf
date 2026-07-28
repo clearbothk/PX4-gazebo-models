@@ -1,0 +1,274 @@
+<?xml version="1.0"?>
+<sdf version="1.11">
+  <model name="clearbot_boat">
+
+
+
+
+    <link name="base_link">
+      <inertial>
+        <pose>0.001198 -0.153827 -0.146414 0 0 0</pose>
+        <mass>220</mass>
+        <inertia>
+          <ixx>158.8</ixx>
+          <ixy>0.004486</ixy>
+          <ixz>0.009781</ixz>
+          <iyy>50.46</iyy>
+          <iyz>5.49</iyz>
+          <izz>201.6</izz>
+        </inertia>
+      </inertial>
+      <visual name="hull_visual">
+        <pose>-0.643048 1.429743 2.663586 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://clearbot_boat/meshes/hull.obj</uri>
+            <scale>0.01 0.01 0.01</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="hull_collision">
+        <geometry>
+          <box>
+            <size>1.300 3.010 0.580</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <sensor name="imu_sensor" type="imu">
+        <always_on>1</always_on>
+        <update_rate>250</update_rate>
+        <imu>
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.0003394</stddev>
+                <dynamic_bias_stddev>3.8785e-05</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>1000</dynamic_bias_correlation_time>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.0003394</stddev>
+                <dynamic_bias_stddev>3.8785e-05</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>1000</dynamic_bias_correlation_time>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.0003394</stddev>
+                <dynamic_bias_stddev>3.8785e-05</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>1000</dynamic_bias_correlation_time>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.004</stddev>
+                <dynamic_bias_stddev>0.006</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>300</dynamic_bias_correlation_time>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.004</stddev>
+                <dynamic_bias_stddev>0.006</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>300</dynamic_bias_correlation_time>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.004</stddev>
+                <dynamic_bias_stddev>0.006</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>300</dynamic_bias_correlation_time>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+      </sensor>
+      <sensor name="air_pressure_sensor" type="air_pressure">
+        <always_on>1</always_on>
+        <update_rate>50</update_rate>
+        <air_pressure>
+          <pressure>
+            <noise type="gaussian">
+              <mean>0</mean>
+              <stddev>0.01</stddev>
+            </noise>
+          </pressure>
+        </air_pressure>
+      </sensor>
+      <sensor name="magnetometer_sensor" type="magnetometer">
+        <always_on>1</always_on>
+        <update_rate>100</update_rate>
+        <magnetometer>
+          <x>
+            <noise type="gaussian">
+              <stddev>0.0001</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <stddev>0.0001</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <stddev>0.0001</stddev>
+            </noise>
+          </z>
+        </magnetometer>
+      </sensor>
+      <sensor name="navsat_sensor" type="navsat">
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+      </sensor>
+    </link>
+
+    <link name="thruster_left_link">
+      <pose relative_to="base_link">0.543743 1.459807 -0.328330 0 0 0</pose>
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.3946</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.3267</iyy>
+          <iyz>-0.03239</iyz>
+          <izz>0.08719</izz>
+        </inertia>
+      </inertial>
+      <collision name="thruster_left_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.1215</radius>
+            <length>0.70775</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="thruster_right_link">
+      <pose relative_to="base_link">-0.506257 1.459807 -0.328330 0 0 0</pose>
+      <inertial>
+        <mass>10</mass>
+        <inertia>
+          <ixx>0.3946</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>0.3267</iyy>
+          <iyz>-0.03239</iyz>
+          <izz>0.08719</izz>
+        </inertia>
+      </inertial>
+      <collision name="thruster_right_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.1215</radius>
+            <length>0.70775</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="left_thruster_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>thruster_left_link</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-1e16</lower>
+          <upper>1e16</upper>
+        </limit>
+      </axis>
+    </joint>
+
+    <joint name="right_thruster_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>thruster_right_link</child>
+      <axis>
+        <xyz>0 -1 0</xyz>
+        <limit>
+          <lower>-1e16</lower>
+          <upper>1e16</upper>
+        </limit>
+      </axis>
+    </joint>
+
+
+    <plugin name="vrx::Surface" filename="libSurface.so">
+      <link_name>base_link</link_name>
+      <hull_length>3.010</hull_length>
+      <hull_radius>0.65</hull_radius>
+      <fluid_level>0.3</fluid_level>
+      <points>
+        <point>0.65 1.505 0</point>
+        <point>0.65 -1.505 0</point>
+        <point>-0.65 1.505 0</point>
+        <point>-0.65 -1.505 0</point>
+      </points>
+      <wavefield>
+        <wave>
+          <model>CWR</model>
+          <amplitude>0.0</amplitude>
+        </wave>
+      </wavefield>
+    </plugin>
+
+    <plugin name="vrx::SimpleHydrodynamics" filename="libSimpleHydrodynamics.so">
+      <link_name>base_link</link_name>
+      <xDotU>0.0</xDotU>
+      <yDotV>0.0</yDotV>
+      <nDotR>0.0</nDotR>
+      <xU>100.0</xU>
+      <xUU>150.0</xUU>
+      <yV>100.0</yV>
+      <yVV>100.0</yVV>
+      <zW>500.0</zW>
+      <kP>300.0</kP>
+      <kPP>600.0</kPP>
+      <mQ>900.0</mQ>
+      <mQQ>900.0</mQQ>
+      <nR>800.0</nR>
+      <nRR>800.0</nRR>
+    </plugin>
+
+    <plugin name="gz::sim::systems::Thruster" filename="gz-sim-thruster-system">
+      <joint_name>left_thruster_joint</joint_name>
+      <thrust_coefficient>0.004422</thrust_coefficient>
+      <fluid_density>1000</fluid_density>
+      <propeller_diameter>0.2</propeller_diameter>
+      <velocity_control>true</velocity_control>
+      <max_thrust_cmd>2353.53383667818</max_thrust_cmd>
+      <namespace>clearbot</namespace>
+      <topic>thrusters/left/thrust</topic>
+      <name>left</name>
+    </plugin>
+
+    <plugin name="gz::sim::systems::Thruster" filename="gz-sim-thruster-system">
+      <joint_name>right_thruster_joint</joint_name>
+      <thrust_coefficient>0.004422</thrust_coefficient>
+      <fluid_density>1000</fluid_density>
+      <propeller_diameter>0.2</propeller_diameter>
+      <velocity_control>true</velocity_control>
+      <max_thrust_cmd>2353.53383667818</max_thrust_cmd>
+      <namespace>clearbot</namespace>
+      <topic>thrusters/right/thrust</topic>
+      <name>right</name>
+    </plugin>
+
+    <plugin name="custom::ActuatorsToThrust" filename="libActuatorsToThrust.so">
+      <wheel_right_actuator_number>0</wheel_right_actuator_number>
+      <wheel_left_actuator_number>1</wheel_left_actuator_number>
+      <esc_right_actuator_number>1</esc_right_actuator_number>
+      <esc_left_actuator_number>0</esc_left_actuator_number>
+    </plugin>
+  </model>
+</sdf>
