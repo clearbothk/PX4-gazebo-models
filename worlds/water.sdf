@@ -16,9 +16,7 @@
       <shadows>true</shadows>
     </scene>
 
-    <!-- Water surface: visual only. Buoyancy is computed by the Surface/
-         SimpleHydrodynamics plugins on the vehicle model relative to
-         fluid_level=0 here, not by a rigid collision plane. -->
+
     <model name="water_surface">
       <static>true</static>
       <link name="link">
@@ -43,8 +41,7 @@
       <self_collide>false</self_collide>
     </model>
 
-    <!-- Seabed: collision-only safety net, well below the water surface so
-         it never interferes with normal buoyancy-driven floating. -->
+
     <model name="seabed">
       <static>true</static>
       <link name="link">
